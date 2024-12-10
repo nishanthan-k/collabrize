@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import { isDev } from '../utils/constants';
 import { ConfigType } from '../global/types/envConfig.type';
 
 dotenv.config({ path: './.env.backend' });
@@ -14,5 +13,8 @@ export const config: ConfigType = {
   },
   auth: {
     jwtSecret: process.env.JWT_SECRET_KEY  as string,
+  },
+  db: {
+    psql: process.env.POSTGRES_URL as string,
   }
 }
