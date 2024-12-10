@@ -1,26 +1,22 @@
 import express from "express";
 import cors from "cors";
 import { config } from "./configs/envConfig";
-import { generateAuthToken } from './utils/auth'
+import { generateAuthToken, verifyAuthToken } from './utils/auth'
+import { domain } from "./utils/constants";
 
 const app = express();
 const port = config.app.port;
 
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: [domain],
   credentials: true,
 };
-
-if (config.app.environment === "production") {
-  corsOptions.origin = ["https://collabrize.vercel.app"];
-}
 
 app.use(cors(corsOptions));
 app.use(express.json());
 
-console.log('config', config, config.auth.jwtSecret)
-
-// generateAuthToken({email: 'hello', role: 'admin'});
+console.log('token --->', generateAuthToken({email: 'hello', role: 'admin'}));
+console.log('valid token --->', verifyAuthToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzMzNzYxODkzLCJleHAiOjE3MzM3NjU0OTN9.GSUBK0g7aBslL2pZ-LZIqVIMTeKKnk87DGCJGBg53A'));
 
 app.get("/", (req, res) => {
   res.send("Hello, Express with TypeScript!");

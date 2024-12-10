@@ -1,15 +1,18 @@
 import dotenv from 'dotenv';
+import { isDev } from '../utils/constants';
+import { ConfigType } from '../global/types/envConfig.type';
 
 dotenv.config({ path: './.env.backend' });
 
-console.log(process.env.NODE_ENV, process.env.PORT)
-
-export const config = {
+export const config: ConfigType = {
   app: {
-    port: process.env.PORT,
-    environment: process.env.NODE_ENV,
+    port: process.env.PORT as string,
+    environment: process.env.NODE_ENV || 'production'  as string,
+    domain: process.env.NODE_ENV === 'development'
+            ? process.env.DEV_DOMAIN  as string
+            : process.env.PROD_DOMAIN  as string,
   },
   auth: {
-    jwtSecret: process.env.JWT_SECRET_KEY,
+    jwtSecret: process.env.JWT_SECRET_KEY  as string,
   }
 }
