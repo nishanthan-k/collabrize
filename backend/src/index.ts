@@ -5,7 +5,7 @@ import authMiddleware from "./middlewares/auth.middleware";
 import { domain } from "./utils/constants";
 import { errorHandler } from "./utils/errorHandler";
 import { connectDB, disConnectDB } from "./configs/psqlDB";
-import { userTable } from "./db/psql/tables";
+import authRouter from './routes/auth.route';
 
 const app = express();
 const port = config.app.port;
@@ -18,6 +18,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+app.use('/api/auth', authRouter);
+
 // middlewares
 app.use(authMiddleware.validateToken);
 
@@ -26,8 +28,6 @@ app.get("/", (req, res) => {
 });
 
 app.use(errorHandler);
-
-userTable();
 
 connectDB()
   .then(() => {

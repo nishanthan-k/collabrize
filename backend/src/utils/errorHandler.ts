@@ -12,6 +12,6 @@ export const errorHandler = (
     return sendErrorResponse(res, err.statusCode, err.message, err.data);
   }
 
-  console.error('Internal Server Error:', err);
+  console.error('Internal Server Error:', err.stack || err);
   return sendErrorResponse(res, 500, 'Something went wrong. Please try again later.');
 };

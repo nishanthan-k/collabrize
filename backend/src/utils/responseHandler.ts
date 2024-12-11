@@ -18,9 +18,16 @@ export const sendResponse = (
   const response: ResponseType = {
     success: true,
     message,
-    data,
-    meta,
   };
+
+  if (data) {
+    response.data = data
+  }
+
+  if (meta) {
+    response.meta = meta
+  }
+
   res.status(statusCode).json(response);
 };
 

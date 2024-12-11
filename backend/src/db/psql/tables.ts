@@ -13,20 +13,39 @@ export const userTable = async () => {
 }
 
 
-export const employeeTable = () => {
+export const employeeTable = async () => {
   const query = `
     CREATE TABLE IF NOT EXISTS employees (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id SERIAL PRIMARY KEY,
       email VARCHAR(50) NOT NULL,
       name VARCHAR(50) NOT NULL,
       role VARCHAR(50) NOT NULL,
       designation VARCHAR(50) NOT NULL,
       experience INTEGER NOT NULL,
-      data_of_joining DATE NOT NULL,
-      data_of_birth DATE NOT NULL,
+      date_of_joining DATE NOT NULL,
+      date_of_birth DATE NOT NULL,
       password VARCHAR(50) NOT NULL,
-      created_at DATETIME NOT NULL,
-      updated_at DATETIME NOT NULL
-    )
-  `;  
-}
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      user_id INT,
+
+      CONSTRAINT fk_userId FOREIGN KEY (user_id)
+      REFERENCES users(id)
+    );
+
+    CREATE OR REPLACE FUNCTION set_updated_at()
+    RETURNS TRIGGER AS $$
+    BEGIN
+      NEW.updated_at = CURRENT_TIMESTAMP;
+      RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER trigger_set_updated_at
+    BEFORE UPDATE ON employees
+    FOR EACH ROW
+    EXECUTE FUNCTION set_updated_at();
+  `;
+
+  await client.query(query);
+};

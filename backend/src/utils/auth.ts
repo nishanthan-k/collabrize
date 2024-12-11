@@ -11,7 +11,7 @@ interface JwtPayload extends User {
 }
 
 export const generateAuthToken = async (user: User): Promise<string> => {
-  const { email, role } = user;
+  const { email, role='admin' } = user;
 
   const payload: JwtPayload = {
     email,
