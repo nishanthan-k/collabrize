@@ -5,6 +5,7 @@ import { decodePassword, hashPassword } from "../../helpers/auth.helper";
 import { client } from "../../configs/psqlDB";
 import { sendResponse } from "../../utils/responseHandler";
 import { generateAuthToken } from "../../utils/auth";
+import { loginSchema, signUpSchema } from "../../global/schemas/auth.schema";
 
 interface LoginReqBodyType {
   email: string,
@@ -27,12 +28,12 @@ const checkUserExists = async (email: string) => {
 export const loginUser = asyncHandler(async (req: Request<{}, {}, LoginReqBodyType, {}>, res: Response) => {
   const { email, password } = req.body;
 
-  if (!email) {
-    throw new BadRequestError('Email not found');
-  }
+  const obj = { email, password }
+  
+  const validation = loginSchema.safeParse(obj)
 
-  if (!password) {
-    throw new BadRequestError('Password not found');
+  if (!validation.success) {
+    throw new ValidationError(validation.error.errors[0].message);
   }
 
   const result = await checkUserExists(email);
@@ -61,20 +62,12 @@ export const loginUser = asyncHandler(async (req: Request<{}, {}, LoginReqBodyTy
 export const createUser = asyncHandler(async (req: Request<{}, {}, SignupReqBodyType, {}>, res: Response) => {
   const { email, password, confirmPassword } = req.body;
 
-  if (!email) {
-    throw new BadRequestError('Email not found');
-  }
+  const obj = { email, password, confirmPassword }
+  
+  const validation = signUpSchema.safeParse(obj)
 
-  if (!password) {
-    throw new BadRequestError('Password not found');
-  }
-
-  if (!confirmPassword) {
-    throw new BadRequestError('Confirm Password not found');
-  }
-
-  if (password !== confirmPassword) {
-    throw new BadRequestError('Passwords are not matching');
+  if (!validation.success) {
+    throw new ValidationError(validation.error.errors[0].message);
   }
 
   const isUserExists = await checkUserExists(email);
