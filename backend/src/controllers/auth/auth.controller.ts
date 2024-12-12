@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import asyncHandler from "../../utils/asyncHandler";
-import { InternalServerError, BadRequestError, UserAlreadyExistsError, ValidationError, NotFoundError, UnauthorizedError } from "../../errors/CustomError";
-import { decodePassword, hashPassword } from "../../helpers/auth.helper";
-import { client } from "../../configs/psqlDB";
+import { InternalServerError, BadRequestError, UserAlreadyExistsError, ValidationError, NotFoundError, UnauthorizedError } from "../../lib/errors/CustomError";
+import { decodePassword, hashPassword } from "../../lib/helpers/auth.helper";
+import { client } from "../../lib/configs/psqlDB";
 import { sendResponse } from "../../utils/responseHandler";
 import { generateAuthToken } from "../../utils/auth";
-import { loginSchema, signUpSchema } from "../../global/schemas/auth.schema";
+import { loginSchema, signUpSchema } from "../../lib/global/schemas/auth.schema";
 
 interface LoginReqBodyType {
   email: string,

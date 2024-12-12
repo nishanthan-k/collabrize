@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import { RequestFunctionType } from "../global/types/global.type";
+import { RequestFunctionType } from "../lib/global/types/global.type";
 
 const asyncHandler = (fn: RequestFunctionType): RequestHandler => {
   return (req: Request, res: Response, next: NextFunction) => {

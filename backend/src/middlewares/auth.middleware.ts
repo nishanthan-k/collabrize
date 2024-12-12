@@ -1,4 +1,4 @@
-import { NotFoundError, ValidationError } from "../errors/CustomError";
+import { NotFoundError, ValidationError } from "../lib/errors/CustomError";
 import asyncHandler from "../utils/asyncHandler";
 import { verifyAuthToken } from "../utils/auth";
 

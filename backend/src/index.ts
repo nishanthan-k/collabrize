@@ -1,10 +1,10 @@
 import cors from "cors";
 import express from "express";
-import { config } from "./configs/envConfig";
+import { config } from "./lib/configs/envConfig";
 import authMiddleware from "./middlewares/auth.middleware";
 import { domain } from "./utils/constants";
 import { errorHandler } from "./utils/errorHandler";
-import { connectDB, disConnectDB } from "./configs/psqlDB";
+import { connectDB, disConnectDB } from "./lib/configs/psqlDB";
 import authRouter from './routes/auth.route';
 
 const app = express();

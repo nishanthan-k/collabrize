@@ -1,6 +1,6 @@
 import jwt, { SignOptions, JwtPayload as JWTDecodePayload, JsonWebTokenError } from 'jsonwebtoken';
-import { User } from '../global/types/user.type';
-import { config } from '../configs/envConfig';
+import { User } from '../lib/global/types/user.type';
+import { config } from '../lib/configs/envConfig';
 import { domain } from './constants';
 
 const JWT_SECRET_KEY = config.auth.jwtSecret as string;
