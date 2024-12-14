@@ -6,6 +6,7 @@ import { client } from "../../lib/configs/psqlDB";
 import { sendResponse } from "../../utils/responseHandler";
 import { generateAuthToken } from "../../utils/auth";
 import { loginSchema, signUpSchema } from "../../lib/global/schemas/auth.schema";
+import { checkUserExists } from "../user/user.controller";
 
 interface LoginReqBodyType {
   email: string,
@@ -13,16 +14,8 @@ interface LoginReqBodyType {
 }
 
 interface SignupReqBodyType extends LoginReqBodyType {
+  name: string,
   confirmPassword: string
-}
-
-const checkUserExists = async (email: string) => {
-  const query = `SELECT * FROM users WHERE email=($1) LIMIT 1`;
-  const values = [email];
-
-  const result = await client.query(query, values);
-
-  return result.rows;
 }
 
 export const loginUser = asyncHandler(async (req: Request<{}, {}, LoginReqBodyType, {}>, res: Response) => {
@@ -60,9 +53,9 @@ export const loginUser = asyncHandler(async (req: Request<{}, {}, LoginReqBodyTy
 })
 
 export const createUser = asyncHandler(async (req: Request<{}, {}, SignupReqBodyType, {}>, res: Response) => {
-  const { email, password, confirmPassword } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
 
-  const obj = { email, password, confirmPassword }
+  const obj = { name, email, password, confirmPassword }
   
   const validation = signUpSchema.safeParse(obj)
 

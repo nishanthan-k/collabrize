@@ -22,8 +22,10 @@ export const emailSchema = z.string()
                             .refine((val) => val && val.trim().length > 0, { message: 'Email is required' })
                             .refine((val) => val !== undefined && val !== null, { message: 'Email is required' });
 
+export const nameSchema = z.string().optional().refine((val) => val && val.trim().length > 0, { message: 'Name is required' })
 
 export const signUpSchema = z.object({
+  name: nameSchema,
   email: emailSchema,
   password: passwordSchema,
   confirmPassword: confirmPasswordSchema,
