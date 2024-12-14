@@ -72,12 +72,12 @@ export const createUser = asyncHandler(async (req: Request<{}, {}, SignupReqBody
   const hashedPassword = hashPassword(password);
 
   const q = `
-    INSERT INTO users (email, password)
-    VALUES ($1, $2)
+    INSERT INTO users (name, email, password)
+    VALUES ($1, $2, $3)
     RETURNING id
   `;
 
-  const values = [email, hashedPassword];
+  const values = [name, email, hashedPassword];
 
   const result = await client.query(q, values);
 
