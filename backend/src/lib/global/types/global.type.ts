@@ -1,3 +1,12 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
-export type RequestFunctionType = (req: Request, res: Response, next: NextFunction) => Promise<any>;
+// Generic type for the request function
+export type RequestFunctionType<
+  P = {}, // Params
+  Q = {}, // Query
+  B = {}  // Body
+> = (
+  req: Request<P, {}, B, Q>, // Request with the generic types
+  res: Response,
+  next: NextFunction
+) => Promise<void>;

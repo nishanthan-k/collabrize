@@ -12,6 +12,23 @@ export const userTable = async () => {
   await client.query(query);
 }
 
+export const orgTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS organizations (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(50) NOT NULL,
+      owner_id INTEGER NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+      CONSTRAINT fk_owner FOREIGN KEY (owner_id)
+      REFERENCES users(id) 
+      ON DELETE SET NULL
+    );
+  `;
+
+  await client.query(query);
+};
 
 export const employeeTable = async () => {
   const query = `
@@ -21,31 +38,25 @@ export const employeeTable = async () => {
       name VARCHAR(50) NOT NULL,
       role VARCHAR(50) NOT NULL,
       designation VARCHAR(50) NOT NULL,
-      experience INTEGER NOT NULL,
+      experience INTEGER NOT NULL CHECK (experience >= 0),
       date_of_joining DATE NOT NULL,
       date_of_birth DATE NOT NULL,
-      password VARCHAR(50) NOT NULL,
+      last_working_day DATE,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       user_id INT,
+      org_id INT,
 
-      CONSTRAINT fk_userId FOREIGN KEY (user_id)
+      CONSTRAINT fk_user FOREIGN KEY (user_id)
       REFERENCES users(id)
+      ON DELETE CASCADE, -- Delete employee if the user is removed
+
+      CONSTRAINT fk_org FOREIGN KEY (org_id)
+      REFERENCES organizations(id)
+      ON DELETE CASCADE -- Delete employee if the organization is removed
     );
-
-    CREATE OR REPLACE FUNCTION set_updated_at()
-    RETURNS TRIGGER AS $$
-    BEGIN
-      NEW.updated_at = CURRENT_TIMESTAMP;
-      RETURN NEW;
-    END;
-    $$ LANGUAGE plpgsql;
-
-    CREATE TRIGGER trigger_set_updated_at
-    BEFORE UPDATE ON employees
-    FOR EACH ROW
-    EXECUTE FUNCTION set_updated_at();
   `;
 
   await client.query(query);
 };
+

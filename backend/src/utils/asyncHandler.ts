@@ -1,8 +1,11 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import { RequestFunctionType } from "../lib/global/types/global.type";
+import { RequestFunctionType } from "../lib/global/types/global.type"; // Adjust path as needed
 
-const asyncHandler = (fn: RequestFunctionType): RequestHandler => {
-  return (req: Request, res: Response, next: NextFunction) => {
+// asyncHandler with generics for params, query, and body
+const asyncHandler = <P, Q, B>(
+  fn: RequestFunctionType<P, Q, B> // Use the RequestFunctionType
+): RequestHandler<P, {}, B, Q> => {  // Ensure compatibility with RequestHandler
+  return (req: Request<P, {}, B, Q>, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };
 };

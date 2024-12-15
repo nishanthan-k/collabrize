@@ -1,11 +1,13 @@
 import cors from "cors";
 import express from "express";
 import { config } from "./lib/configs/envConfig";
+import { connectDB, disConnectDB } from "./lib/configs/psqlDB";
 import authMiddleware from "./middlewares/auth.middleware";
+import authRouter from './routes/auth.route';
+import orgRouter from './routes/org.route';
+import userRouter from './routes/user.route';
 import { domain } from "./utils/constants";
 import { errorHandler } from "./utils/errorHandler";
-import { connectDB, disConnectDB } from "./lib/configs/psqlDB";
-import authRouter from './routes/auth.route';
 
 const app = express();
 const port = config.app.port;
@@ -22,6 +24,10 @@ app.use('/api/auth', authRouter);
 
 // middlewares
 app.use(authMiddleware.validateToken);
+
+// routes
+app.use('/api/user', userRouter);
+app.use('/api/org', orgRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, Express with TypeScript!");
