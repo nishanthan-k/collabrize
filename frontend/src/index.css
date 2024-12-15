@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background and foreground */
+    --background: #ffffff; /* White */
+    --foreground: #0d0d0d; /* Near-black */
+
+    /* Card and Popover colors */
+    --card: #ffffff; /* White */
+    --card-foreground: #0d0d0d; /* Near-black */
+    --popover: #ffffff; /* White */
+    --popover-foreground: #0d0d0d; /* Near-black */
+
+    /* Primary and Secondary */
+    --primary: #4a90e2; /* Neutral blue */
+    --primary-foreground: #f0f8ff; /* Alice Blue */
+
+    --secondary: #e3f2fd; /* Light blue */
+    --secondary-foreground: #1a1a1a; /* Dark gray */
+
+    /* Muted and Accent */
+    --muted: #f5f5f5; /* Very light gray */
+    --muted-foreground: #757575; /* Medium gray */
+    --accent: #e3f2fd; /* Light blue */
+    --accent-foreground: #1a1a1a; /* Dark gray */
+
+    /* Destructive (error/warning) */
+    --destructive: #e53935; /* Red */
+    --destructive-foreground: #ffffff; /* White */
+
+    /* Border and Input */
+    --border: #d3d3d3; /* Light gray */
+    --input: #d3d3d3; /* Light gray */
+
+    /* Ring (focus outline) */
+    --ring: #377bb5; /* Neutral blue */
+
+    /* Charts */
+    --chart-1: #e57373; /* Light red */
+    --chart-2: #64b5f6; /* Light blue */
+    --chart-3: #4db6ac; /* Teal */
+    --chart-4: #fff176; /* Yellow */
+    --chart-5: #aed581; /* Green */
+  }
+
+  .dark {
+    /* Background and foreground */
+    --background: #1e1e1e; /* Dark gray */
+    --foreground: #f5f5f5; /* Very light gray */
+
+    /* Card and Popover colors */
+    --card: #2a2a2a; /* Slightly lighter dark gray */
+    --card-foreground: #f5f5f5; /* Very light gray */
+    --popover: #2a2a2a; /* Slightly lighter dark gray */
+    --popover-foreground: #f5f5f5; /* Very light gray */
+
+    /* Primary and Secondary */
+    --primary: #4a90e2; /* Bright blue */
+    --primary-foreground: #1a1a1a; /* Dark gray */
+    --secondary: #2c3e50; /* Dark blue-gray */
+    --secondary-foreground: #f5f5f5; /* Very light gray */
+
+    /* Muted and Accent */
+    --muted: #3c3c3c; /* Medium dark gray */
+    --muted-foreground: #9e9e9e; /* Light gray */
+    --accent: #4a90e2; /* Bright blue */
+    --accent-foreground: #f5f5f5; /* Very light gray */
+
+    /* Destructive (error/warning) */
+    --destructive: #d32f2f; /* Dark red */
+    --destructive-foreground: #f5f5f5; /* Very light gray */
+
+    /* Border and Input */
+    --border: #424242; /* Dark gray */
+    --input: #424242; /* Dark gray */
+
+    /* Ring (focus outline) */
+    --ring: #4a90e2; /* Bright blue */
+
+    /* Charts */
+    --chart-1: #e57373; /* Light red */
+    --chart-2: #64b5f6; /* Light blue */
+    --chart-3: #4db6ac; /* Teal */
+    --chart-4: #fff176; /* Yellow */
+    --chart-5: #aed581; /* Green */
+  }
+}
