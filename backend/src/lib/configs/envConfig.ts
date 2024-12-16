@@ -14,7 +14,7 @@ export const config: ConfigType = {
             ? process.env.FRONTEND_DEV_DOMAIN  as string
             : process.env.FRONTEND_PROD_DOMAIN  as string,
     frontendDevDomain: process.env.NODE_ENV === 'development'
-            ? process.env.FRONTEND_PROD_DOMAIN  as string
+            ? process.env.FRONTEND_DEV_DOMAIN  as string
             : process.env.FRONTEND_DEV_DOMAIN  as string,
   },
   auth: {

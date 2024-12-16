@@ -22,6 +22,15 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Handle the OPTIONS preflight request
+app.options('/api/auth/login', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Adjust this to your frontend domain
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.status(200).end();
+});
+
 app.get("/", (req, res) => {
   res.send("Server is running no issues");
 });
