@@ -1,7 +1,7 @@
 import jwt, { SignOptions, JwtPayload as JWTDecodePayload, JsonWebTokenError } from 'jsonwebtoken';
 import { User } from '../lib/global/types/user.type';
 import { config } from '../lib/configs/envConfig';
-import { domain } from './constants';
+import { domain, frontendDomain } from './constants';
 
 const JWT_SECRET_KEY = config.auth.jwtSecret as string;
 
@@ -16,7 +16,7 @@ export const generateAuthToken = async (user: User): Promise<string> => {
   const payload: JwtPayload = {
     email,
     role,
-    aud: domain,
+    aud: frontendDomain,
     iss: domain,
   };
 
@@ -34,7 +34,7 @@ export const verifyAuthToken = async (token: string) => {
     const decoded = jwt.verify(token, JWT_SECRET_KEY) as JWTDecodePayload;
     const { exp } = decoded;
 
-    const isSameDomain = (decoded.aud === domain && decoded.iss === domain)
+    const isSameDomain = (decoded.aud === frontendDomain && decoded.iss === domain)
     const isExpired = exp ? Date.now() > exp * 1000 : false;
 
     const isValid = isSameDomain && !isExpired;
