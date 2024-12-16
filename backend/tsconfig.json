@@ -3,12 +3,16 @@
     "target": "ES6",
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "outDir": "./dist",                // Output directory for compiled files
+    "rootDir": "./src",                // Source directory for TypeScript files
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true                      // Strict mode is enabled for better type safety
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts"                        // Include all TypeScript files in the src directory
+  ],
+  "exclude": [
+    "node_modules"                        // Exclude node_modules from compilation
+  ]
 }
