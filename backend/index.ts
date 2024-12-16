@@ -13,7 +13,7 @@ const app = express();
 const port = config.app.port;
 
 const corsOptions = {
-  origin: [domain, frontendDevDomain,  frontendProdDomain],
+  origin: [domain, frontendDevDomain, frontendProdDomain],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -23,13 +23,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Handle the OPTIONS preflight request
-app.options('/', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Adjust this to your frontend domain
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.status(200).end();
 });
+
 
 app.get("/", (req, res) => {
   res.send("Server is running no issues");
