@@ -10,9 +10,12 @@ export const config: ConfigType = {
     domain: process.env.NODE_ENV === 'development'
             ? process.env.DEV_DOMAIN  as string
             : process.env.PROD_DOMAIN  as string,
-    frontendDomain: process.env.NODE_ENV === 'development'
+    frontendProdDomain: process.env.NODE_ENV === 'development'
             ? process.env.FRONTEND_DEV_DOMAIN  as string
             : process.env.FRONTEND_PROD_DOMAIN  as string,
+    frontendDevDomain: process.env.NODE_ENV === 'development'
+            ? process.env.FRONTEND_PROD_DOMAIN  as string
+            : process.env.FRONTEND_DEV_DOMAIN  as string,
   },
   auth: {
     jwtSecret: process.env.JWT_SECRET_KEY  as string,
