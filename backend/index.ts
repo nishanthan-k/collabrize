@@ -23,7 +23,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Handle the OPTIONS preflight request
-app.options('/api/auth/login', (req, res) => {
+app.options('/', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // Adjust this to your frontend domain
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
