@@ -5,7 +5,7 @@ import { CheckUserQuery } from "./user.type";
 import { sendResponse } from "../../utils/responseHandler";
 import { NotFoundError } from "../../lib/errors/CustomError";
 
-export const checkUserExists = async (value: string, field: string = "email") => {
+export const checkUserExists = async (value: any, field: string = "email") => {
   const query = `SELECT * FROM users WHERE ${field}=($1) LIMIT 1`;
   const values = [value];
 

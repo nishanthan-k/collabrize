@@ -10,13 +10,13 @@
     "strict": true,                    // Enable strict type checking
     "resolveJsonModule": true,         // Allow importing JSON files
     "baseUrl": "./",                   // Base directory for module imports
-    "paths": {
-      "@controllers/*": ["src/controllers/*"],
-      "@routes/*": ["src/routes/*"],
-      "@middlewares/*": ["src/middlewares/*"],
-      "@utils/*": ["src/utils/*"],
-      "@lib/*": ["src/lib/*"]
-    }
+    // "paths": {
+    //   "@controllers/*": ["src/controllers/*"],
+    //   "@routes/*": ["src/routes/*"],
+    //   "@middlewares/*": ["src/middlewares/*"],
+    //   "@utils/*": ["src/utils/*"],
+    //   "@lib/*": ["src/lib/*"]
+    // }
   },
   "include": ["index.ts", "src/**/*.ts"], // Include root index.ts and all src files
   "exclude": ["node_modules", "dist"]    // Exclude node_modules and dist
