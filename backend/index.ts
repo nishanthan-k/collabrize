@@ -6,16 +6,19 @@ import authMiddleware from "./src/middlewares/auth.middleware";
 import authRouter from './src/routes/auth.route';
 import orgRouter from './src/routes/org.route';
 import userRouter from './src/routes/user.route';
-import { domain } from "./src/utils/constants";
+import { domain, frontendDomain } from "./src/utils/constants";
 import { errorHandler } from "./src/utils/errorHandler";
 
 const app = express();
 const port = config.app.port;
 
 const corsOptions = {
-  origin: [domain],
+  origin: [domain, frontendDomain],
   credentials: true,
 };
+console.log('domain', domain);
+
+console.log('frontendDomain', frontendDomain);
 
 app.use(cors(corsOptions));
 app.use(express.json());
