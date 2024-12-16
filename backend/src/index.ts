@@ -20,6 +20,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Server is running no issues");
+});
+
 app.use('/api/auth', authRouter);
 
 // middlewares
