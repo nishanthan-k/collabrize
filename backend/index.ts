@@ -1,13 +1,13 @@
 import cors from "cors";
 import express from "express";
-import { config } from "./lib/configs/envConfig";
-import { connectDB, disConnectDB } from "./lib/configs/psqlDB";
-import authMiddleware from "./middlewares/auth.middleware";
-import authRouter from './routes/auth.route';
-import orgRouter from './routes/org.route';
-import userRouter from './routes/user.route';
-import { domain } from "./utils/constants";
-import { errorHandler } from "./utils/errorHandler";
+import { config } from "./src/lib/configs/envConfig";
+import { connectDB, disConnectDB } from "./src/lib/configs/psqlDB";
+import authMiddleware from "./src/middlewares/auth.middleware";
+import authRouter from './src/routes/auth.route';
+import orgRouter from './src/routes/org.route';
+import userRouter from './src/routes/user.route';
+import { domain } from "./src/utils/constants";
+import { errorHandler } from "./src/utils/errorHandler";
 
 const app = express();
 const port = config.app.port;
