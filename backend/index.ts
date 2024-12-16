@@ -13,12 +13,9 @@ const app = express();
 const port = config.app.port;
 
 const corsOptions = {
-  origin: [domain, frontendDomain],
+  origin: "*",
   credentials: true,
 };
-console.log('domain', domain);
-
-console.log('frontendDomain', frontendDomain);
 
 app.use(cors(corsOptions));
 app.use(express.json());
