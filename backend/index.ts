@@ -45,9 +45,9 @@ app.use(authMiddleware.validateToken);
 app.use('/api/user', userRouter);
 app.use('/api/org', orgRouter);
 
-app.get("/", (req, res) => {
-  res.send("Hello, Express with TypeScript!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello, Express with TypeScript!");
+// });
 
 app.use(errorHandler);
 
