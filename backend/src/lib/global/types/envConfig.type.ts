@@ -2,6 +2,7 @@ interface AppConfig {
   port: string,
   environment: string,
   domain: string,
+  frontendDomain: string,
 };
 
 interface AuthConfig {
