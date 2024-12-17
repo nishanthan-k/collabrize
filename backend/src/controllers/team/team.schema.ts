@@ -5,6 +5,10 @@ export const createTeamSchema = z.object({
             required_error: 'User id is required',
             invalid_type_error: 'User id must be a number'
           }),
+  orgId: z.number({
+            required_error: 'Org id is required',
+            invalid_type_error: 'Org id must be a number'
+          }),
   teamName: z
              .string({
                 required_error: 'Team name is required',

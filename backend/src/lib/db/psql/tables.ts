@@ -30,6 +30,31 @@ export const orgTable = async () => {
   await client.query(query);
 };
 
+export const teamTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS Teams (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(50) NOT NULL,
+      owner_id INT NOT NULL,
+      members JSONB NOT NULL DEFAULT '[]',
+      org_id INT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+      CONSTRAINT fk_owner FOREIGN KEY (owner_id)
+      REFERENCES employees(id) 
+      ON DELETE CASCADE,
+
+      CONSTRAINT fk_org FOREIGN KEY (org_id)
+      REFERENCES organizations(id)
+      ON DELETE CASCADE
+    );
+  `;
+
+  await client.query(query);
+};
+
+
 export const employeeTable = async () => {
   const query = `
     CREATE TABLE IF NOT EXISTS employees (

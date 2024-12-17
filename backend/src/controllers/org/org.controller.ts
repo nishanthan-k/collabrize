@@ -1,17 +1,24 @@
 import { Request, Response } from "express";
-import asyncHandler from "../../utils/asyncHandler";
-import { sendResponse } from "../../utils/responseHandler";
-import { z } from "zod";
 import { client } from "../../lib/configs/psqlDB";
 import { ValidationError } from "../../lib/errors/CustomError";
 import { orgExists } from "../../lib/helpers/db.helper";
+import asyncHandler from "../../utils/asyncHandler";
+import { sendResponse } from "../../utils/responseHandler";
 import { createOrgSchema } from "./org.schema";
+import { CreateOrgRequestBody } from "./org.type";
 
-type CreateOrgRequestBody = z.infer<typeof createOrgSchema>
+export const checkOrgExists = async (value: any, field: string = "id") => {
+  const q = `SELECT * FROM organizations WHERE ${field} = $1`;
+  const values = [value];
+
+  const result = await client.query(q, values);
+
+  return result.rows;
+}
 
 export const createOrganization = asyncHandler(async (req: Request<{}, {}, CreateOrgRequestBody, {}>, res: Response) => {
   let { id, orgName } = req.body;
-  orgName = orgName.trim();
+  orgName = orgName?.trim();
 
   const validation = createOrgSchema.safeParse({ id, orgName });
 
