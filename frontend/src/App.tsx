@@ -1,27 +1,25 @@
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./app/store";
+import { addId } from "./features/user/user.actions";
+import { UserIdEnum } from "./lib/global/types/global.types";
+import useToggleTheme from "./lib/hooks/useToggleTheme.hook";
 import Button from "./ui/Button";
 
 function App() {
-  useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
+  const userState = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch<AppDispatch>();
+  const toggleTheme = useToggleTheme();
 
-  const toggleDarkMode = () => {
-  const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  document.documentElement.classList.toggle('dark');
-  localStorage.setItem('theme', newTheme);
-};
+console.log(userState);
 
 return (
-  <div className="w-screen h-screen bg-background">
+  <div className="w-screen h-screen bg-background space-x-10 space-y-10">
     <Button content="Click me" variant="primary" />
-    <button onClick={toggleDarkMode} className="text-black dark:text-white">Toggle Dark Mode</button>
+    <Button onClick={toggleTheme} variant="secondary" className="text-black dark:text-white">Toggle Dark Mode</Button>
+
+    <Button content="Add UserId" onClick={() => dispatch(addId({key: UserIdEnum.userId, value: 1}))}/>
+    <Button content="Add EmpId" onClick={() => dispatch(addId({key: UserIdEnum.empId, value: 1}))}/>
+    <Button content="Add OrgId" onClick={() => dispatch(addId({key: UserIdEnum.orgId, value: 1}))}/>
   </div>
 );
 }
