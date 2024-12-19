@@ -6,6 +6,7 @@ module.exports = {
         'background': 'var(--background)',
         'foreground': 'var(--foreground)',
         'textColor': 'var(--textColor)',
+        'secondaryTextColor': 'var(--secondaryTextColor)',
         'darkTextColor': 'rgb(255,255,255)',
         'primaryBtnBg': 'rgb(66, 133, 244)',
         'secondaryBtnBg': 'rgb(44, 62, 80)', // need to fix this
@@ -19,12 +20,14 @@ module.exports = {
         ':root': {
           '--background': 'rgb(255, 255, 255)',
           '--foreground': 'rgb(30, 30, 30)',
-          '--textColor': 'rgb(0,0,0)',
+          '--textColor': 'rgb(33, 37, 41)',
+          '--secondaryTextColor': 'rgb(40, 40, 40)',
         },
         '.dark': {
-          '--background': 'rgb(30, 30, 30)',
+          '--background': 'rgb(18, 18, 18)',
           '--foreground': 'rgb(255, 255, 255)',
-          '--textColor': 'rgb(255, 255, 255)',
+          '--textColor': 'rgb(235, 235, 235)',
+          '--secondaryTextColor': 'rgb(220, 220, 220)',
         },
       });
     }),
