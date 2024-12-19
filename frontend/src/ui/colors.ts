@@ -1,10 +1,14 @@
-const getFromConfig = (name: string) => {
-  // Access the CSS variable by name
+const getFromConfig = (name: string, fallback: string) => {
   const cssVar = getComputedStyle(document.documentElement).getPropertyValue(`--${name}`);
-  console.log('primaryBtnBg var', cssVar)
-  return cssVar.trim() || null;
+  console.log(name, cssVar)
+  return cssVar.trim() || fallback;
 };
 
-export const primaryBtnBg = getFromConfig('ring') || 'rgb(66, 133, 244)';
+// button
+export const primaryBtnBg = getFromConfig('primaryBtnBg', 'rgb(111,111,111)');
+export const secondaryBtnBg = getFromConfig('secondaryBtnBg', 'rgb(111,111,111)');
 
-console.log('primaryBtnBg', primaryBtnBg)
+// text color
+export const textColor = getFromConfig('textColor', 'rgb(111,111,111)');
+export const lightTextColor = getFromConfig('lightTextColor', 'rgb(111,111,111)');
+export const darkTextColor = getFromConfig('darkTextColor', 'rgb(111,111,111)');
