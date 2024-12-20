@@ -43,7 +43,7 @@ export const loginUser = asyncHandler(async (req: Request<{}, {}, LoginReqBodyTy
     throw new UnauthorizedError('Invalid password');
   }
 
-  const token = await generateAuthToken({ email });
+  const token = await generateAuthToken({ email, id: result[0].id });
 
   const respData = {
     authToken: token,
@@ -85,7 +85,7 @@ export const createUser = asyncHandler(async (req: Request<{}, {}, SignupReqBody
     throw new InternalServerError('User creation failed');
   }
 
-  const token = await generateAuthToken({ email })
+  const token = await generateAuthToken({ email, id: isUserExists[0].id });
 
   const repspData = {
     authToken: token,

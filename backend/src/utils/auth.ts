@@ -2,6 +2,7 @@ import jwt, { SignOptions, JwtPayload as JWTDecodePayload, JsonWebTokenError } f
 import { User } from '../lib/global/types/user.type';
 import { config } from '../lib/configs/envConfig';
 import { domain, frontendDomain } from './constants';
+import { userInfo } from 'os';
 
 const JWT_SECRET_KEY = config.auth.jwtSecret as string;
 
@@ -11,13 +12,14 @@ interface JwtPayload extends User {
 }
 
 export const generateAuthToken = async (user: User): Promise<string> => {
-  const { email, role='admin' } = user;
+  const { email, role='admin', id } = user;
 
   const payload: JwtPayload = {
     email,
     role,
     aud: frontendDomain,
     iss: domain,
+    id,
   };
 
   const signOptions: SignOptions = {
@@ -44,11 +46,18 @@ export const verifyAuthToken = async (token: string) => {
       message = 'Domain is not matching';
     } else if (isExpired) {
       message = 'Token is expired';
-    }    
+    }
+
+    const userInfo = {
+      id: decoded.id,
+      email: decoded.email,
+      role: decoded.role,
+    }
 
     const resp = {
       isValid,
       message,
+      userInfo,
     };
 
     return resp;
@@ -64,6 +73,7 @@ export const verifyAuthToken = async (token: string) => {
     return {
       isValid: false,
       message,
+      userInfo: {},
     }
   }
 };

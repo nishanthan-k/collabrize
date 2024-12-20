@@ -5,6 +5,7 @@ import { connectDB, disConnectDB } from "./src/lib/configs/psqlDB";
 import authMiddleware from "./src/middlewares/auth.middleware";
 import authRouter from './src/routes/auth.route';
 import orgRouter from './src/routes/org.route';
+import teamRouter from './src/routes/team.route';
 import userRouter from './src/routes/user.route';
 import { domain, frontendDevDomain, frontendProdDomain } from "./src/utils/constants";
 import { errorHandler } from "./src/utils/errorHandler";
@@ -44,6 +45,7 @@ app.use(authMiddleware.validateToken);
 // routes
 app.use('/api/user', userRouter);
 app.use('/api/org', orgRouter);
+app.use('/api/team', teamRouter);
 
 // app.get("/", (req, res) => {
 //   res.send("Hello, Express with TypeScript!");

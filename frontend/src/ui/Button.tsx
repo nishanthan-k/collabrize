@@ -1,34 +1,62 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
-type ButtonProps = {
-  content: string;
+interface ButtonProps {
+  content?: string;
   onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'danger';
+  primary?: boolean,
+  secondary?: boolean,
+  outlined?: boolean,
+  fluid?: boolean,
   disabled?: boolean;
+  children?: React.ReactNode,
+  className?: string,
 };
+
+type ButtonVariants = "primary" | "secondary" | "outlined";
 
 const Button: React.FC<ButtonProps> = ({
   content,
   onClick,
-  variant = 'primary',
+  primary = false,
+  secondary = false,
+  outlined = false,
+  fluid = false,
   disabled = false,
+  children,
+  className = '',
 }) => {
-  const baseStyles = 'px-4 py-2 rounded font-semibold transition-colors duration-200';
+  const baseStyles = 'text-darkTextColor text-sm font-medium px-2.5 py-1.5 rounded transition-colors duration-200 hover:opacity-90';
+  const fluidStyles = `w-full`;
+  const disabledStyles = `cursor-not-allowed opacity-50 hover:opacity-50`;
+  
+  const variant: ButtonVariants = outlined ? 'outlined' : secondary ? 'secondary' : 'primary';
   const variantStyles = {
-    primary: 'bg-blue-500 text-white hover:bg-blue-600',
-    secondary: 'bg-gray-500 text-white hover:bg-gray-600',
-    danger: 'bg-red-500 text-white hover:bg-red-600',
-  };
+    primary: `bg-primaryBtnBg`,
+    secondary: `bg-secondaryBtnBg`,
+    outlined: `text-textColor border border-textColor`
+  }
+  
+  function getFinalStyle(obj: Record<string, string>) {
+    return  Object.entries(obj)
+                 .filter(([key]) => key && (key === 'className' || eval(key)))
+                 .map(([_, style]) => style)
+                 .join(' ')
+  }
+  const styleObj = {
+    fluid: fluidStyles,
+    disabled: disabledStyles,
+    className: className
+  }
+  const buttonStyle = `${baseStyles} ${variantStyles[variant]} ${getFinalStyle(styleObj)}`;
 
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`${baseStyles} ${variantStyles[variant]} ${
-        disabled ? 'cursor-not-allowed opacity-50' : ''
-      }`}
+      className={buttonStyle}
     >
-      {content}
+      {children || content}
     </button>
   );
 };

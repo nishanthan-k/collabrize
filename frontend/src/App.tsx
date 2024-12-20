@@ -1,27 +1,16 @@
-import { useEffect } from "react";
+import useToggleTheme from "./lib/hooks/useToggleTheme.hook";
 import Button from "./ui/Button";
 
 function App() {
-  useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-  const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  document.documentElement.classList.toggle('dark');
-  localStorage.setItem('theme', newTheme);
-};
+  const toggleTheme = useToggleTheme();
 
 return (
-  <div className="w-screen h-screen bg-background">
-    <Button content="Click me" variant="primary" />
-    <button onClick={toggleDarkMode} className="text-black dark:text-white">Toggle Dark Mode</button>
+  <div className="w-screen h-screen bg-background space-y-10 space-x-10">
+    <Button content="Download" primary />
+    <Button onClick={toggleTheme} secondary>
+      Toggle Dark Mode
+    </Button>
+    <Button outlined content="Send" disabled />
   </div>
 );
 }
