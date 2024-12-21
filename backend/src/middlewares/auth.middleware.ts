@@ -1,4 +1,4 @@
-import { NotFoundError, ValidationError } from "../lib/errors/CustomError";
+import { JwtError, NotFoundError, ValidationError } from "../lib/errors/CustomError";
 import asyncHandler from "../utils/asyncHandler";
 import { verifyAuthToken } from "../utils/auth";
 
@@ -8,12 +8,12 @@ const validateToken = asyncHandler(async (req, res, next) => {
   if (!token) {
     return next(new NotFoundError('Auth token not found'))
   }
-  
+
   const tokenResp = await (verifyAuthToken(token));
-  
+
   if (!tokenResp.isValid) {
-    return next(new ValidationError(tokenResp.message))
-  } 
+    return next(new JwtError(tokenResp.message))
+  }
 
   next();
 })
