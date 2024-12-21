@@ -33,7 +33,7 @@ export const generateAuthToken = async (user: User): Promise<string> => {
 export const verifyAuthToken = async (token: string) => {
   try {
 
-    const decoded = jwt.verify(token + '12', JWT_SECRET_KEY) as JWTDecodePayload;
+    const decoded = jwt.verify(token, JWT_SECRET_KEY) as JWTDecodePayload;
     const { exp } = decoded;
 
     const isSameDomain = (decoded.aud === frontendDomain && decoded.iss === domain);
