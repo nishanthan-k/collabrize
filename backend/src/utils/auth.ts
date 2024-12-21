@@ -12,7 +12,7 @@ interface JwtPayload extends User {
 }
 
 export const generateAuthToken = async (user: User): Promise<string> => {
-  const { email, role='admin', id } = user;
+  const { email, role = 'admin', id } = user;
 
   const payload: JwtPayload = {
     email,
@@ -33,7 +33,7 @@ export const generateAuthToken = async (user: User): Promise<string> => {
 export const verifyAuthToken = async (token: string) => {
   try {
 
-    const decoded = jwt.verify(token, JWT_SECRET_KEY) as JWTDecodePayload;
+    const decoded = jwt.verify(token + '12', JWT_SECRET_KEY) as JWTDecodePayload;
     const { exp } = decoded;
 
     const isSameDomain = (decoded.aud === frontendDomain && decoded.iss === domain);
@@ -63,9 +63,9 @@ export const verifyAuthToken = async (token: string) => {
     return resp;
   } catch (error) {
     let message;
-    
+
     if (error instanceof JsonWebTokenError) {
-      message = error.message;
+      message = 'JWT - ' + error.message;
     } else {
       message = 'Internal Server Error';
     }

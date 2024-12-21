@@ -1,7 +1,7 @@
 export class CustomError extends Error {
   statusCode: number;
   data: any;
-  
+
   constructor(message: string, statusCode: number = 500, data: any = null) {
     super(message);
     this.statusCode = statusCode;
@@ -36,6 +36,12 @@ export class UserAlreadyExistsError extends CustomError {
 
 export class UnauthorizedError extends CustomError {
   constructor(message: string = 'Unauthorized access') {
+    super(message, 401); // 401 Unauthorized
+  }
+}
+
+export class JwtError extends CustomError {
+  constructor(message: string = 'JWT Error') {
     super(message, 401); // 401 Unauthorized
   }
 }
