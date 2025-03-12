@@ -1,31 +1,20 @@
-import { SignIn, SignUp } from "@clerk/clerk-react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { apiUrl } from "../../../global/constants/apiUrls";
 
-const AuthPage = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  
-  // Decide whether the user wants to sign in or sign up based on the 'mode' query param
-  const isLogin = searchParams.get("mode") !== "signup"; // Default to SignIn if no mode is provided
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-  const toggleAuthMode = () => {
-    // Toggle between SignIn and SignUp based on the current mode
-    navigate(isLogin ? "/auth?mode=signup" : "/auth?mode=login", { replace: true });
-  };
+function AuthPage() {
+
+
+  const handleOAuth = (provider: string) => {
+    window.location.href = `${API_BASE_URL}${apiUrl.auth.oauth}${provider}`
+  }
 
   return (
-    <div>
-      {isLogin ? (
-        <SignIn afterSignInUrl="/" /> // Automatically redirects to "/" after successful sign-in
-      ) : (
-        <SignUp afterSignUpUrl="/" /> // Automatically redirects to "/" after successful sign-up
-      )}
-      
-      <button onClick={toggleAuthMode} style={{ marginTop: "10px" }}>
-        {isLogin ? "Create an account" : "Already have an account? Sign in"}
-      </button>
-    </div>
-  );
-};
+    <section>
+      <button onClick={() => handleOAuth('github')}>Github</button>
+      <button onClick={() => handleOAuth('google')}>Google</button>
+    </section>
+  )
+}
 
-export default AuthPage;
+export default AuthPage

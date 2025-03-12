@@ -1,24 +1,19 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import AuthPage from "./features/auth/pages/AuthPage";
-import ProtectedRoute from "./global/routes/ProtectedRoute";
-import Dashboard from "./features/dashboard/pages/DashboardPage";
+import { Navigate, Route, Routes } from 'react-router-dom'
+import AuthPage from './features/auth/pages/AuthPage'
+import Dashboard from './features/dashboard/pages/DashboardPage'
 
-function App() {
+export default function App() {
   return (
-    <Routes>
-      {/* Public Route */}
-      <Route path="/auth" element={<AuthPage />} />
+    <>
+      <Routes>
+        <Route index path="/auth" element={<AuthPage />} />
 
-      {/* Protected Routes - Everything else */}
-      <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Route>
+        {/* <Route element={<ProtectedRoute />}> */}
+          <Route path="/" element={<Dashboard />} />
+        {/* </Route> */}
 
-      {/* Redirect unknown routes to home */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
-  );
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
+  )
 }
-
-export default App;
