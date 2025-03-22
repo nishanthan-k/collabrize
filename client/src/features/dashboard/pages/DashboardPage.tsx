@@ -19,7 +19,7 @@ const Dashboard = () => {
 
 
   return (
-    <div>
+    <div className="flex">
       <h1>Welcome to Dashboard</h1>
       {user ? (
         <>
